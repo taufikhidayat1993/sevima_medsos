@@ -1,7 +1,7 @@
   <template>
     <div>
       <nav>
-        <h1><router-link :to="{ name: 'home'}">codejungle.org </router-link></h1>
+        <h1><router-link :to="{ name: 'home'}">Sevima Medsos </router-link></h1>
         <div v-on:click="toggleDropdown" id="menu-select">
           +
 
@@ -15,7 +15,7 @@
           <li  v-if="isAuth"><router-link to="/group/overview">Groups</router-link></li>
           <li  v-if="isAuth"><a @click="logout">Logout</a></li>
           <li  v-if="!isAuth"><router-link to="/">Login</router-link></li>
-          <li ><a v-on:click="switchLang('en')">EN</a> | <a v-on:click="switchLang('de')">DE</a></li>
+         
         </ul>
     </div>
       <div class="container">
