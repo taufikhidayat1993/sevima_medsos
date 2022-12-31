@@ -957,7 +957,7 @@
 .editor div {
   margin-top: 0em;
   padding-top: 0em;
-  min-height: 110px;
+  min-height: 70px;
 }
 
 .editor div:focus {

@@ -2,18 +2,28 @@
 
   <div class="row-0">
     <div class="col-lg-12" v-if="isAuth">
-      <share-dialog :edit="isEdit" :reshare="isReshare" @updated="onUpdated" @saved="onSaved" :group_id="group_id" :content_id="id"></share-dialog>
-
+      <div id="post-modal-data" class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                           <div class="iq-card-header d-flex justify-content-between">
+                              <div class="iq-header-title">
+                                 <h4 class="card-title">Create Post</h4>
+                              </div>
+                           </div>
+         <div class="iq-card-body" data-toggle="modal" data-target="#post-modal">
+               <share-dialog :edit="isEdit" :reshare="isReshare" @updated="onUpdated" @saved="onSaved" :group_id="group_id" :content_id="id"></share-dialog>
+          </div>
+        </div>
     </div>
-
+  
     <div class="row" v-if="!group_id">
+    
       <div class="col-lg-2 col-md-4 group slider" v-for="item in group">
         <div @click="showGroup(item.id, item.name)" class="preview" v-if="item.avatar" v-bind:style="{ 'background-image': 'url(' + getThumbnail(item.avatar, 115, 175) + ')' }" />
 
           <router-link :to="{ name: 'Group', params: {name:item.name, id:item.id} }"></router-link>
+       </div>
 
-      </div>
     </div>
+     
 
     <div v-bind:class=css_stream_size  >
       <div class="streamitem " v-for="data in content" v-if="
@@ -26,34 +36,43 @@
 
 
           <div class="col-lg-12 item col-md-12">
-            <header class="row-0">
-              <div class="col-lg-10">
-              <router-link :to="{ name: 'user', params: {name:data.name, user_id:data.user_id} }">
+            <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+           <div class="iq-card-body">
+            <div class="user-post-data">
+              <div class="d-flex flex-wrap">
+                
+                                    <div class="media-support-user-img mr-3">
+                                      <picture>
+  <div class="avatar"  v-if="data.avatar" v-bind:style="{ 'background-image': 'url(' + getThumbnail(data.avatar, 45, 45) + ')' }" />
+</picture>
+                                       <img class="rounded-circle img-fluid" src="./images/1.jpg" alt="">
+                                    </div>
+                                    <div class="media-support-info mt-2">
+                                      <h5 class="mb-0 d-inline-block"> 
+                                        <router-link :to="{ name: 'user', params: {name:data.name, user_id:data.user_id} }">
+    {{data.name}}
+                                        </router-link>
+  </h5>
+                                    <p class="mb-0 text-primary">
+                                      <date>{{  formatDate(data.created_at) |  moment("from", new Date(), true) }}</date>
 
-                <picture>
-                  <div class="avatar"  v-if="data.avatar" v-bind:style="{ 'background-image': 'url(' + getThumbnail(data.avatar, 45, 45) + ')' }" />
-                </picture>
-                <author >
-                  {{data.name}}
-
-                </author>
-              </router-link>
-              <span @click="permalink(data.id)">#{{data.id}}</span>
-
-              <date>{{  formatDate(data.created_at) |  moment("from", new Date(), true) }}</date>
+                                    </p>
+                                    </div>
+                                    <div class="iq-card-post-toolbar">
+                                      <button class="btn btn-primary small" v-if="data.user_id==user.id" @click="deleteContent(data.id)">{{$t("form.delete")}}</button>
+                                      <button class="btn btn-primary small" v-if="data.user_id==user.id" @click="editContent(data.id)">{{$t("form.edit")}}</button>
+                                    </div>
               </div>
-              <div class="actions col-lg-2">
-                <button class="btn default small" v-if="data.user_id==user.id" @click="deleteContent(data.id)">{{$t("form.delete")}}</button>
-                <button class="btn default small" v-if="data.user_id==user.id" @click="editContent(data.id)">{{$t("form.edit")}}</button>
-              </div>
-            </header>
+            </div>
+       
 
 
 
-
+            <div class="mt-3">
             <content v-html="data.html_content">
 
             </content>
+            </div>
 
             <likes :content=data v-on:reshareContent="reshareContent" v-on:toggleComment="toggleComment">
             </likes>
@@ -68,6 +87,9 @@
       <UserBox v-if="user_id" :user_id="user_id"></UserBox>
       <GroupBox v-if="group_id" :group_id="group_id"></GroupBox>
     </div>
+    </div>
+    </div>
+    
   </div>
 </template>
 <script>

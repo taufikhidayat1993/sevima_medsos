@@ -1,26 +1,32 @@
   <template>
     <div>
-      <nav>
+      <div class="iq-top-navbar">
+      <div class="iq-navbar-custom">
+        <nav class="navbar navbar-expand-lg navbar-light p-0">
+    
         <h1><router-link :to="{ name: 'home'}">Sevima Medsos </router-link></h1>
-        <div v-on:click="toggleDropdown" id="menu-select">
+        <div v-on:click="toggleDropdown" id="menu-select" style="font-size:22px">
           +
 
         </div>
       </nav>
+      </div>
+      </div>
       <div v-if="showDropdown" id="menu" @click="toggleDropdown">
         <ul >
           <li><router-link :to="{ name: 'home'}">#home </router-link></li>
           <li v-if="isAuth"><router-link :to="{ name: 'user', params: {name:user.name, user_id:user.id} }">{{user.name}}</router-link></li>
           <li  v-if="isAuth"><router-link to="/user/profile">Settings</router-link></li>
-          <li  v-if="isAuth"><router-link to="/group/overview">Groups</router-link></li>
           <li  v-if="isAuth"><a @click="logout">Logout</a></li>
           <li  v-if="!isAuth"><router-link to="/">Login</router-link></li>
          
         </ul>
     </div>
+    <div id="content-page" class="content-page">
       <div class="container">
         <router-view>
         </router-view>
+      </div>
       </div>
     </div>
   </template>

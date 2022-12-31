@@ -1,6 +1,6 @@
 <template>
 
-  <div class="row-0 editor-container">
+  <div class="row-0">
 
       <editor-menu-bar v-if="showMeta" class="btn default" :editor="editor" v-slot="{ commands, isActive }">
         <div class="menubar">
@@ -129,10 +129,10 @@
 
       <div class="col-lg-6 col-md-8">
         <editor-menu-bar class="btn default" :editor="editor" v-slot="{ commands, isActive }">
-          <button class="default icon-picture" @click="openFileDialog(commands.image)"/>
+          <button class="btn btn-primary icon-picture" @click="openFileDialog(commands.image)"/>
         </editor-menu-bar>
-        <button class="btn default" v-if="!isComment" @click.prevent="save"> <i class="icon-heart" /> {{$t('Share')}}</button>
-        <button class="btn default" v-if="isComment" @click.prevent="save"> {{$t('Comment')}}</button>
+        <button class="btn btn-primary" v-if="!isComment" @click.prevent="save"> <i class="icon-heart" /> {{$t('Share')}}</button>
+        <button class="btn btn-primary" v-if="isComment" @click.prevent="save"> {{$t('Comment')}}</button>
       </div>
       <div v-if="!isComment" class="col-lg-6 col-md-4">
 

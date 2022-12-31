@@ -33,20 +33,12 @@
 
 @import '~node-snackbar/src/sass/snackbar.sass';
 
-[dir="ltr"] {
-  &[mode="light"] {
+
     body { @include light-body; }
     @import "../css/light/typography";
     @import "../css/light/style";
     @import "../css/light/responsive";
-  }
-  &[mode="dark"] {
-    body { @include dark-body; }
-    @import "../css/dark/typography";
-    @import "../css/dark/style";
-    @import "../css/dark/responsive";
-  }
-}
+ 
 
 [dir="rtl"]{
   &[mode="light"] {
